@@ -10,9 +10,8 @@ Graph boruvkaMST(const Graph& G) {
     if (n == 0) return mst;
 
     UnionFind UF(n);
-    int edgeCount = 0;
     //while spanning tree is not completed
-    while (edgeCount < n -1) {
+    while (UF.numberOfComponents() > 1) {
         std::vector<Graph::Edge> cheapest(n);
         std::vector<bool> hasCheapest(n, false); //if component's cheapest edge is set
         //iterate all edges
@@ -36,8 +35,8 @@ Graph boruvkaMST(const Graph& G) {
                 }
             }
         }
-        //merge the vertices of the cheapest edges
-        //and add the edges to the spanning tree 
+        //merge the vertices of the cheapest edges and add the edges to the spanning tree 
+        int mergedCount = 0; //number of merges in this Boruvka round
         for (int v = 0; v < n; ++v) {
             if (!hasCheapest[v]) continue;
             auto e = cheapest[v];
@@ -48,7 +47,9 @@ Graph boruvkaMST(const Graph& G) {
 
             UF.merge(root1, root2);
             mst.addEdge(e);
+            ++mergedCount;
         }
+        if (mergedCount == 0) break; //no edges between 2 components left (disconnected)
     }
     return mst;
 }
