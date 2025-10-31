@@ -17,35 +17,36 @@ Graph boruvkaMST(const Graph& G) {
         //iterate all edges
         for (int v = 0; v < n; ++v) {
             for (auto e : *G.neighbours(v)) {
-                if (v != e.v1) continue; //avoid duplicate edge
-                int root1 = UF.find(e.v1);
-                int root2 = UF.find(e.v2);
+                if (v != e.v1) continue;            //avoid duplicate edge
+                int comp1 = UF.find(e.v1);
+                int comp2 = UF.find(e.v2);
 
-                if (root1 == root2) continue; //v1 and v2 are in same component
+                if (comp1 == comp2) continue;       //v1 and v2 are in same component
 
-                //update cheapest edge for component root1
-                if (!hasCheapest[root1] || e.weight < cheapest[root1].weight) {
-                    cheapest[root1] = e;
-                    hasCheapest[root1] = true;
+                //update cheapest edge for component 1
+                if (!hasCheapest[comp1] || e.weight < cheapest[comp1].weight) {
+                    cheapest[comp1] = e;
+                    hasCheapest[comp1] = true;
                 }
-                //update cheapest edge for component root2
-                if (!hasCheapest[root2] || e.weight < cheapest[root2].weight) {
-                    cheapest[root2] = e;
-                    hasCheapest[root2] = true;
+                //update cheapest edge for component 2
+                if (!hasCheapest[comp2] || e.weight < cheapest[comp2].weight) {
+                    cheapest[comp2] = e;
+                    hasCheapest[comp2] = true;
                 }
             }
         }
+        
         //merge the vertices of the cheapest edges and add the edges to the spanning tree 
-        int mergedCount = 0; //number of merges in this Boruvka round
+        int mergedCount = 0;                //number of merges in this Boruvka round
         for (int v = 0; v < n; ++v) {
             if (!hasCheapest[v]) continue;
             auto e = cheapest[v];
-            int root1 = UF.find(e.v1);
-            int root2 = UF.find(e.v2);
+            int comp1 = UF.find(e.v1);
+            int comp2 = UF.find(e.v2);
 
-            if (root1 == root2) continue;
+            if (comp1 == comp2) continue;
 
-            UF.merge(root1, root2);
+            UF.merge(comp1, comp2);
             mst.addEdge(e);
             ++mergedCount;
         }
