@@ -1,13 +1,36 @@
-#ifdef KKT_HPP_
+#ifndef KKT_HPP_
 #define KKT_HPP_
 
+#include "graph.hpp"
+#include <vector>
+#include <utility>
+#include <unordered_map>
+
 //Boruvka step to return the chosen edges and the connected components (supernode) for next round
-Graph boruvkaStep(const Graph& G) {}
+std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G);
 
 //random function to choose edges with probability 1/2
-int randomChoice();
+bool randomChoice();
 
 //KKT MST algorithm
 Graph kktMST(const Graph& G);
+
+//helper functions
+
+//hash function for pair<int, int> (GeeksforGeeks)
+struct hash_pair {
+    template <class T1, class T2>
+    size_t operator()(const std::pair<T1, T2>& p) const
+    {// Hash the first element
+        size_t hash1 = hash<T1>{}(p.first);
+        // Hash the second element
+        size_t hash2 = hash<T2>{}(p.second);
+        // Combine the two hash values
+        return hash1 ^ (hash2 + 0x9e3779b9 + (hash1 << 6) + (hash1 >> 2));
+    }
+};
+
+//make an ordered pair (smaller value first)
+std::pair<int, int> makeOrderedPair(int a, int b);
 
 #endif      //KKT_HPP_
