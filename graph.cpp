@@ -10,8 +10,12 @@ Graph::Graph() = default;
 
 Graph::Graph(int n, std::vector<Edge> vec)
              : adjList {std::vector<std::set<Edge> >(n)} {
+  nextEdgeId = 0;
   for (const Edge& e : vec) {
     addEdge(e);
+    if (e.edgeId == -1) {
+      nextEdgeId = e.edgeId + 1;
+    }
   }
 }
 
