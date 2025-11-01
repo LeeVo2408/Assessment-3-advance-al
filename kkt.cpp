@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include "kkt.hpp"
 #include <random>
+#include "lca.hpp"
 
 //Boruvka step to return the chosen edges and the connected components (supernode) for next round
 std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
@@ -42,9 +43,8 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
         chosen.push_back(e); //add the chosen edge
         UF.merge(comp1, comp2);
     }
-
     //construct the contract graph G1
-
+    
     //vertices in the same component in UF are contracted into a supernode
     std::vector<int> vertexSuperNode(n);                //keep track of vertex's current supernode
     std::unordered_map<int, int> superNodes;            //map the component to new supernode id
@@ -62,7 +62,7 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
         }
     }
     //now add edges to the contracted graph
-    Graph G1(compCount);
+    Graph contracted(compCount);
     for (int u = 0; u < n; ++u) {
         for (auto e : *G.neighbours(u)) {
             if (u != e.v1) continue;                    //avoid duplicate edge
@@ -71,29 +71,46 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
 
             if (su == sv) continue;                     //both endpoints are in same supernode (delete self-loop)
             
-            G1.addEdge({e.weight, su, sv});
+            contracted.addEdge({e.weight, su, sv});
         }
     }
-    return {chosen, G1};
+    return {chosen, contracted};
 }
 
 //random function to choose edges with probability 1/2
 bool randomChoice() {
-    std::mt19937 mt {382'928} ;
-    std::bernoulli_distribution dist(0.5);
+    static std::mt19937 mt {std::random_device{}()}; ;
+    static std::bernoulli_distribution dist(0.5);
     return dist(mt);
 }
 
 Graph kktMST(const Graph& G) {
     int n = G.numVertices();
     Graph mst(n);
-
+    //base case
     if (n <= 1) return mst;
+    
+    // Check if graph has any edges (or check weight sum =0, depending on if weights is trictly positive or not)
+    //might also make some edge count function in Graph class
+    bool hasEdges = false;
+    for (int u = 0; u < n && !hasEdges; ++u) {
+        for (auto e : *G.neighbours(u)) {
+            if (u == e.v1) {
+                hasEdges = true;
+                break;
+            }
+        }
+    }
+    if (!hasEdges) return mst;
+
     //running 2 Boruvka steps on G
-    Graph G0 = boruvkaStep(G).second;
-    auto G_prime = boruvkaStep(G0);
-    std::vector<Graph::Edge> B = G_prime.first; //chosen edges from Boruvka steps
-    Graph G1 = G_prime.second;                  //contracted graph
+    auto s1 = boruvkaStep(G);
+    auto s2 = boruvkaStep(s1.second);
+    const auto B1 = s1.first;     //chosen edges from first Boruvka step
+    const auto B2 = s2.first;     //chosen edges from second Boruvka step
+    Graph G1 = s2.second;      //contracted graph
+
+
     Graph H(G1.numVertices());
     //random sampling each edge with probability 1/2
     for (int u = 0; u < G1.numVertices(); ++u) {
@@ -108,22 +125,21 @@ Graph kktMST(const Graph& G) {
     Graph F = kktMST(H);
 
     //find F-heavy edges in G_prime and remove them
-    UnionFind UF(F.numVertices());
-    Graph G2(F.numVertices()); //graph after removing F-heavy edges
-    for (int u = 0; u < F.numVertices(); ++u) {
-        for (auto e : *F.neighbours(u)) {
+    LCA lca(F); 
+    Graph G2(G1.numVertices()); //graph after removing F-heavy edges
+
+    for (int u = 0; u < G1.numVertices(); ++u) {
+        for (auto e : *G1.neighbours(u)) {
             if (u != e.v1) continue;
-            //if v1 and v2 are in the same component
-            if (UF.sameSet(e.v1, e.v2)) {
-                //w_max is max weight in path between v1 and v2 in F (using LCA, probably binary lifting)
-                //if e.weight > w_max, then e is F-heavy and should be removed from G1
-                //else e is F-light and should be kept
-            }
+            double maxW = lca.maxEdgeWeight(e.v1, e.v2);
+            //if (!(maxW==maxW)) G2.addEdge(e);
+            if (e.weight > maxW) continue; // Skip F-heavy edges
+            G2.addEdge(e);
         }
     }
     //recursive call on G2
     Graph F2 = kktMST(G2);
-    
+
     //mst is union of F2 and B
     for (int u = 0; u < F2.numVertices(); ++u) {
         for (auto e : *F2.neighbours(u)) {
@@ -131,8 +147,23 @@ Graph kktMST(const Graph& G) {
             mst.addEdge(e);
         }
     }
-    for (int u = 0; u < B.size(); ++u) {
-        mst.addEdge(B[u]);
+
+    for (auto e : B1) {
+        mst.addEdge(e);
     }
+
+    for (auto e : B2) {
+        mst.addEdge(e);
+    }
+
     return mst;
 }
+
+//helper functions
+
+std::pair<int, int> makeOrderedPair(int a, int b) {
+    if (a > b) std::swap(a, b);
+    return {a, b};
+}
+//debug plan:
+//map edges back to its original vertices in G
