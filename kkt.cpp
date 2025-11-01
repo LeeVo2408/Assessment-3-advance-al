@@ -76,3 +76,36 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
     }
     return {chosen, G1};
 }
+
+//random function to choose edges with probability 1/2
+bool randomChoice() {
+    std::mt19937 mt {382'928} ;
+    std::bernoulli_distribution dist(0.5);
+    return dist(mt);
+}
+
+Graph kktMST(const Graph& G) {
+    int n = G.numVertices();
+    Graph mst(n);
+
+    if (n <= 1) return mst;
+    //running 2 Boruvka steps on G
+    Graph G0 = boruvkaStep(G).second;
+    auto G_prime = boruvkaStep(G0);
+    std::vector<Graph::Edge> B = G_prime.first; //chosen edges from Boruvka steps
+    Graph G1 = G_prime.second;                  //contracted graph
+    Graph H(G1.numVertices());
+    //random sampling each edge with probability 1/2
+    for (int u = 0; u < G1.numVertices(); ++u) {
+        for (auto e : *G1.neighbours(u)) {
+            if (u != e.v1) continue;
+            if (randomChoice()) {
+                H.addEdge(e);
+            }
+        }
+    }
+    //recursive call on H
+    Graph F = kktMST(H);
+
+    return mst;
+}
