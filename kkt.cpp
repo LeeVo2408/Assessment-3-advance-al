@@ -107,5 +107,32 @@ Graph kktMST(const Graph& G) {
     //recursive call on H
     Graph F = kktMST(H);
 
+    //find F-heavy edges in G_prime and remove them
+    UnionFind UF(F.numVertices());
+    Graph G2(F.numVertices()); //graph after removing F-heavy edges
+    for (int u = 0; u < F.numVertices(); ++u) {
+        for (auto e : *F.neighbours(u)) {
+            if (u != e.v1) continue;
+            //if v1 and v2 are in the same component
+            if (UF.sameSet(e.v1, e.v2)) {
+                //w_max is max weight in path between v1 and v2 in F (using LCA, probably binary lifting)
+                //if e.weight > w_max, then e is F-heavy and should be removed from G1
+                //else e is F-light and should be kept
+            }
+        }
+    }
+    //recursive call on G2
+    Graph F2 = kktMST(G2);
+    
+    //mst is union of F2 and B
+    for (int u = 0; u < F2.numVertices(); ++u) {
+        for (auto e : *F2.neighbours(u)) {
+            if (u != e.v1) continue;
+            mst.addEdge(e);
+        }
+    }
+    for (int u = 0; u < B.size(); ++u) {
+        mst.addEdge(B[u]);
+    }
     return mst;
 }
