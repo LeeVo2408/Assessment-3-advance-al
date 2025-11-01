@@ -29,7 +29,48 @@ LCA::LCA(const Graph& F) {
     //build the tables
     preprocessing(); 
 }
-double LCA::maxEdgeWeight(int u, int v) {}
+
+double LCA::maxEdgeWeight(int u, int v) {
+    const double NEG_INF = std::numeric_limits<double>::lowest();
+    double maxW = NEG_INF;
+    
+    // Return NEG_INF for disconnected vertices (no path exists)
+    if (level[u] == -1 || level[v] == -1) return NEG_INF;
+    
+    // Same vertex - no edge weight on empty path
+    if (u == v) return 0.0;
+
+    //ensure u is deeper or equal to v
+    if (level[u] < level[v]) {
+        std::swap(u, v);
+    }
+
+    //lift u to the same level as v
+    for (int i = log - 1; i >= 0; --i) {
+        if (up[u][i] != -1 && level[up[u][i]] >= level[v]) {
+            //max weight between v and its 2^i-th ancestor
+            maxW = std::max(maxW, maxWeight[u][i]);
+            u = up[u][i];
+        }
+    }
+
+    if (u == v) {
+        return maxW;
+    }
+    else {
+        //lift both u and v to find closest node to LCA
+        for (int i = log - 1; i >= 0; --i) {
+            if (up[u][i] != -1 && up[u][i] != up[v][i]) {
+                maxW = std::max({maxW, maxWeight[u][i], maxWeight[v][i]});
+                u = up[u][i];
+                v = up[v][i];
+            }
+        }
+        //final step to reach LCA
+        maxW = std::max({maxW, maxWeight[u][0], maxWeight[v][0]});
+    }
+    return maxW;
+}
 
 
 //helper functions
