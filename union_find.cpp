@@ -18,19 +18,19 @@ int UnionFind::find(int element) {
 }
 
 void UnionFind::merge(int element1, int element2) {
-    int root1 = find(element1);
-    int root2 = find(element2);
-    if (root1 == root2) {
+    int comp1 = find(element1);
+    int comp2 = find(element2);
+    if (comp1 == comp2) {
         return;
     }
-    if (sizes[root1] < sizes[root2]) {
-        parent[root1] = root2;
-        sizes[root2] += sizes[root1];
+    if (sizes[comp1] < sizes[comp2]) {
+        parent[comp1] = comp2;
+        sizes[comp2] += sizes[comp1];
     }
 
     else {
-        parent[root2] = root1;
-        sizes[root1] += sizes[root2];
+        parent[comp2] = comp1;
+        sizes[comp1] += sizes[comp2];
     }
     --componentsCount;
 }
