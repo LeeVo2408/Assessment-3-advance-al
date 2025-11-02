@@ -37,7 +37,7 @@ class Graph {
   // a vector of edges
   explicit Graph(int n, std::vector<Edge> = {});
 
-  void addEdge(const Edge&);
+  void addEdge(Edge);
   int numVertices() const;
   double edgeWeightSum() const;
 
