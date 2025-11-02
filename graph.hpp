@@ -12,10 +12,23 @@ class Graph {
     double weight {};
     int v1 {};
     int v2 {};
+    int edgeId {};
+    // Define operator< for ordering edges in sets, ignoring weight and edgeId
+    bool operator<(const Edge& other) const {
+      int a = v1, b = v2;
+      int a1 = other.v1, b1 = other.v2;
+      if (a > b) std::swap(a, b);
+      if (a1 > b1) std::swap(a1, b1);
+      if (a == a1) {
+        return b < b1;
+      }
+      return a < a1;
+    }
   };
 
  private:
   std::vector<std::set<Edge> > adjList {};
+  int nextEdgeId {}; // to assign unique edge IDs
 
  public:
   // default constructor

@@ -9,15 +9,23 @@
 Graph::Graph() = default;
 
 Graph::Graph(int n, std::vector<Edge> vec)
-             : adjList {std::vector<std::set<Edge> >(n)} {
+             : adjList {std::vector<std::set<Edge> >(n)}, nextEdgeId {0} {
   for (const Edge& e : vec) {
     addEdge(e);
   }
 }
 
-void Graph::addEdge(const Edge& e) {
+void Graph::addEdge(Edge e) {
   if (e.v1 >= 0 && e.v2 >= 0 &&
       e.v1 < numVertices() && e.v2 < numVertices()) {
+    if (e.edgeId == -1) {
+      e.edgeId = nextEdgeId++; //assign unique edge ID
+    }
+    else {
+      if (e.edgeId >= nextEdgeId) {
+        nextEdgeId = e.edgeId + 1; //update nextEdgeId to avoid collision
+      }
+    }
     adjList.at(e.v1).insert(e);
     adjList.at(e.v2).insert(e);
   }
