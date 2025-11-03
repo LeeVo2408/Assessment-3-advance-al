@@ -17,10 +17,6 @@ Graph kktMST(const Graph& G);
 
 //helper functions
 
-//hash function for pair<int, int> 
-//to carry edgeID
-
-struct hash_pair {
 //hash function for pair<int, int> (GeeksforGeeks)
 struct pairhash {
 public:
@@ -31,8 +27,9 @@ public:
   }
 };
 
-
 //make an ordered pair (smaller value first)
 std::pair<int, int> makeOrderedPair(int a, int b);
 
 #endif      //KKT_HPP_
+
+//nothing

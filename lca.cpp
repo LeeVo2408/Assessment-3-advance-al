@@ -61,13 +61,13 @@ double LCA::maxEdgeWeight(int u, int v) {
         //lift both u and v to find closest node to LCA
         for (int i = log - 1; i >= 0; --i) {
             if (up[u][i] != -1 && up[u][i] != up[v][i]) {
-                maxW = std::max({maxW, maxWeight[u][i], maxWeight[v][i]});
+                maxW = std::max(maxW, std::max(maxWeight[u][i], maxWeight[v][i]));
                 u = up[u][i];
                 v = up[v][i];
             }
         }
         //final step to reach LCA
-        maxW = std::max({maxW, maxWeight[u][0], maxWeight[v][0]});
+        maxW = std::max(maxW, std::max(maxWeight[u][0], maxWeight[v][0]));
     }
     return maxW;
 }
@@ -108,3 +108,5 @@ void LCA::preprocessing() {
         }
     }
 }
+
+//nothing
