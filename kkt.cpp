@@ -72,7 +72,7 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
 
             if (su == sv) continue;                     //both endpoints are in same supernode (delete self-loop)
             std::pair<int,int> k = makeOrderedPair(su, sv);
-            if (!lightest.contains(k) || lightest.at(k).weight > e.weight) {
+            if (!lightest.count(k) || lightest.at(k).weight > e.weight) {
                 lightest[k] = {e.weight, su, sv, e.edgeId};
             }
         }

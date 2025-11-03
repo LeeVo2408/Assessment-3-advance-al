@@ -15,7 +15,7 @@ Graph::Graph(int n, std::vector<Edge> vec)
   }
 }
 
-void Graph::addEdge(const Edge& e) {
+void Graph::addEdge(Edge e) {
   if (e.v1 >= 0 && e.v2 >= 0 &&
       e.v1 < numVertices() && e.v2 < numVertices()) {
     if (e.edgeId == -1) {
@@ -55,3 +55,5 @@ double Graph::edgeWeightSum() const {
 const Graph::Edge &Graph::edgeByID(int edgeId) const {
   return idOriginal.at(edgeId);
 }
+
+//nothing
