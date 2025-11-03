@@ -20,12 +20,18 @@ void Graph::addEdge(Edge e) {
       e.v1 < numVertices() && e.v2 < numVertices()) {
     if (e.edgeId == -1) {
       e.edgeId = nextEdgeId++; //assign unique edge ID
+      idOriginal.insert({e.edgeId, e});
     }
     else {
       if (e.edgeId >= nextEdgeId) {
         nextEdgeId = e.edgeId + 1; //update nextEdgeId to avoid collision
       }
     }
+    //update new edgeID
+    if (!idOriginal.count(e.edgeId)) {
+      idOriginal.insert({e.edgeId, e});
+    }
+
     adjList.at(e.v1).insert(e);
     adjList.at(e.v2).insert(e);
   }
@@ -44,4 +50,8 @@ double Graph::edgeWeightSum() const {
   }
   // undirected graph -> we have counted every edge twice
   return totalWeight/2;
+}
+
+const Graph::Edge &Graph::edgeByID(int edgeId) const {
+  return idOriginal.at(edgeId);
 }

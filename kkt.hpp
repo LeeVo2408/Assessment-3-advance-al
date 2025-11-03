@@ -21,6 +21,8 @@ Graph kktMST(const Graph& G);
 //to carry edgeID
 
 struct hash_pair {
+//hash function for pair<int, int> (GeeksforGeeks)
+struct pairhash {
 public:
   template <typename T, typename U>
   std::size_t operator()(const std::pair<T, U> &x) const

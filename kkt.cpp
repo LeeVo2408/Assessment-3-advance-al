@@ -63,6 +63,9 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
     }
     //to keep the min edge weight and carry edgeID
     std::unordered_map<std::pair<int,int>, Graph::Edge, hash_pair> originalMap; //to store the edgeID the edge in contracted graph
+
+    std::unordered_map<std::pair<int,int>, Graph::Edge, pairhash> lightest;
+    //now add edges to the contracted graph
     for (int u = 0; u < n; ++u) {
         for (auto e : *G.neighbours(u)) {
             if (u != e.v1) continue;                    //avoid duplicate edge
@@ -81,6 +84,15 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
     Graph contracted(compCount);
     for (const auto& e : originalMap) {
         contracted.addEdge(e.second); //the contracted graph's edge now store its original ID
+            if (!lightest.contains(k) || lightest.at(k).weight > e.weight) {
+                lightest[k] = {e.weight, su, sv, e.edgeId};
+            }
+        }
+    }
+
+    Graph contracted(compCount);
+    for (const auto& e : lightest) {
+        contracted.addEdge(e.second);
     }
     return {chosen, contracted};
 }
@@ -137,12 +149,12 @@ Graph kktMST(const Graph& G) {
     }
     //recursive call on G2
     Graph F2 = kktMST(G2);
-
+    
     //mst is union of F2 and B
     for (int u = 0; u < F2.numVertices(); ++u) {
         for (auto e : *F2.neighbours(u)) {
             if (u != e.v1) continue;
-            mst.addEdge(e);
+            mst.addEdge(G.edgeByID(e.edgeId));
         }
     }
 
@@ -151,7 +163,7 @@ Graph kktMST(const Graph& G) {
     }
 
     for (auto e : B2) {
-        mst.addEdge(e);
+        mst.addEdge(G.edgeByID(e.edgeId));
     }
 
     return mst;
@@ -162,4 +174,5 @@ Graph kktMST(const Graph& G) {
 std::pair<int, int> makeOrderedPair(int a, int b) {
     if (a > b) std::swap(a, b);
     return {a, b};
+}
 }
