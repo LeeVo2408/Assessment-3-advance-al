@@ -17,18 +17,20 @@ Graph kktMST(const Graph& G);
 
 //helper functions
 
-//hash function for pair<int, int> (GeeksforGeeks)
+//hash function for pair<int, int> 
+//to carry edgeID
+
 struct hash_pair {
-    template <class T1, class T2>
-    size_t operator()(const std::pair<T1, T2>& p) const
-    {// Hash the first element
-        size_t hash1 = hash<T1>{}(p.first);
-        // Hash the second element
-        size_t hash2 = hash<T2>{}(p.second);
-        // Combine the two hash values
-        return hash1 ^ (hash2 + 0x9e3779b9 + (hash1 << 6) + (hash1 >> 2));
-    }
+//hash function for pair<int, int> (GeeksforGeeks)
+struct pairhash {
+public:
+  template <typename T, typename U>
+  std::size_t operator()(const std::pair<T, U> &x) const
+  {
+    return std::hash<T>()(x.first) ^ std::hash<U>()(x.second);
+  }
 };
+
 
 //make an ordered pair (smaller value first)
 std::pair<int, int> makeOrderedPair(int a, int b);

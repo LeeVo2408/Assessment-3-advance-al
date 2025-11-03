@@ -4,6 +4,7 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <unordered_map>
 
 // Class for undirected graphs with edge weights
 class Graph {
@@ -12,23 +13,17 @@ class Graph {
     double weight {};
     int v1 {};
     int v2 {};
-    int edgeId {};
-    // Define operator< for ordering edges in sets, ignoring weight and edgeId
+    int edgeId {-1};
+    // Define operator< for ordering edges in sets
     bool operator<(const Edge& other) const {
-      int a = v1, b = v2;
-      int a1 = other.v1, b1 = other.v2;
-      if (a > b) std::swap(a, b);
-      if (a1 > b1) std::swap(a1, b1);
-      if (a == a1) {
-        return b < b1;
-      }
-      return a < a1;
+        return std::tie(v1, v2, weight, edgeId) < std::tie(other.v1, other.v2, other.weight, other.edgeId);
     }
   };
 
  private:
   std::vector<std::set<Edge> > adjList {};
   int nextEdgeId {}; // to assign unique edge IDs
+  std::unordered_map<int,Edge> idOriginal; //original edge by id
 
  public:
   // default constructor
@@ -37,7 +32,7 @@ class Graph {
   // a vector of edges
   explicit Graph(int n, std::vector<Edge> = {});
 
-  void addEdge(const Edge&);
+  void addEdge(Edge);
   int numVertices() const;
   double edgeWeightSum() const;
 
@@ -56,8 +51,12 @@ class Graph {
   iterator neighbours(int a) const {
     return adjList.cbegin() + a;
   }
+  //get original edge by ID 
+  const Edge& edgeByID(int edgeId) const;
   
 };
 
 
 #endif      // GRAPH_HPP_
+
+//nothing
