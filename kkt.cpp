@@ -61,6 +61,8 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
             vertexSuperNode[v] = superNodes[comp];
         }
     }
+    //to keep the min edge weight and carry edgeID
+    std::unordered_map<std::pair<int,int>, Graph::Edge, hash_pair> originalMap; //to store the edgeID the edge in contracted graph
 
     std::unordered_map<std::pair<int,int>, Graph::Edge, pairhash> lightest;
     //now add edges to the contracted graph
@@ -69,9 +71,19 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
             if (u != e.v1) continue;                    //avoid duplicate edge
             int su = vertexSuperNode[u];                //supernode of vertex u
             int sv = vertexSuperNode[e.v2];             //supernode of vertex v
-
             if (su == sv) continue;                     //both endpoints are in same supernode (delete self-loop)
             std::pair<int,int> k = makeOrderedPair(su, sv);
+            //keep the edge with lightest weight for supernode pair
+            if (!originalMap.contains(k) || originalMap.at(k).weight > e.weight) {
+                originalMap[k] = {e.weight, su, sv, e.edgeId};
+            }
+        }
+    }
+
+    //now add edges to the contracted graph
+    Graph contracted(compCount);
+    for (const auto& e : originalMap) {
+        contracted.addEdge(e.second); //the contracted graph's edge now store its original ID
             if (!lightest.contains(k) || lightest.at(k).weight > e.weight) {
                 lightest[k] = {e.weight, su, sv, e.edgeId};
             }
@@ -98,18 +110,8 @@ Graph kktMST(const Graph& G) {
     //base case
     if (n <= 1) return mst;
     
-    // Check if graph has any edges (or check weight sum =0, depending on if weights is trictly positive or not)
-    //might also make some edge count function in Graph class
-    bool hasEdges = false;
-    for (int u = 0; u < n && !hasEdges; ++u) {
-        for (auto e : *G.neighbours(u)) {
-            if (u == e.v1) {
-                hasEdges = true;
-                break;
-            }
-        }
-    }
-    if (!hasEdges) return mst;
+    //assume that edge weight are positive. check if there's no edge
+    if (G.edgeWeightSum() == 0) return mst;;
 
     //running 2 Boruvka steps on G
     auto s1 = boruvkaStep(G);
@@ -172,4 +174,5 @@ Graph kktMST(const Graph& G) {
 std::pair<int, int> makeOrderedPair(int a, int b) {
     if (a > b) std::swap(a, b);
     return {a, b};
+}
 }
