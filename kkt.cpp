@@ -140,7 +140,6 @@ Graph kktMST(const Graph& G) {
         for (auto e : *G1.neighbours(u)) {
             if (u != e.v1) continue;
             double maxW = lca.maxEdgeWeight(e.v1, e.v2);
-            //if (!(maxW==maxW)) G2.addEdge(e);
             if (e.weight > maxW) continue; // Skip F-heavy edges
             G2.addEdge(e);
         }
@@ -173,4 +172,3 @@ std::pair<int, int> makeOrderedPair(int a, int b) {
     if (a > b) std::swap(a, b);
     return {a, b};
 }
-//nothing

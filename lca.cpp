@@ -5,11 +5,15 @@
 #include <limits>
 #include <algorithm>
 
+const double NEG_INF = std::numeric_limits<double>::lowest();
+const double INF = std::numeric_limits<double>::infinity();
+
 LCA::LCA(const Graph& F) {
     n = F.numVertices();
     adjList.assign(n, {});
     parent.assign(n, -1);
     level.assign(n, -1);
+    rootID.assign(n, -1);
     log = 0;
     int p = 1; //p = 2^k
     while (p <= n) {
@@ -31,14 +35,13 @@ LCA::LCA(const Graph& F) {
 }
 
 double LCA::maxEdgeWeight(int u, int v) {
-    const double NEG_INF = std::numeric_limits<double>::lowest();
     double maxW = NEG_INF;
     
-    // Return NEG_INF for disconnected vertices (no path exists)
-    if (level[u] == -1 || level[v] == -1) return NEG_INF;
+    // Return INF for disconnected vertices (no path exists)
+    if (rootID[u] != rootID[v]) return INF;
     
     // Same vertex - no edge weight on empty path
-    if (u == v) return 0.0;
+    if (u == v) return NEG_INF;
 
     //ensure u is deeper or equal to v
     if (level[u] < level[v]) {
@@ -75,7 +78,7 @@ double LCA::maxEdgeWeight(int u, int v) {
 
 //helper functions
 
-void LCA::dfs(int u, int p) {
+void LCA::dfs(int u, int p, int r) {
     for (auto e : adjList[u]) {
         int v;
         if (u == e.v1 ) v = e.v2; else v = e.v1;
@@ -85,7 +88,8 @@ void LCA::dfs(int u, int p) {
         up[v][0] = u; //1st ancestor of v
         maxWeight[v][0] = e.weight;
         level[v] = level[u] + 1;
-        dfs(v, u);
+        rootID[v] = r;  //update v's component
+        dfs(v, u, r);
     }
 }
 
@@ -96,8 +100,9 @@ void LCA::preprocessing() {
         parent[root] = -1;
         up[root][0] = -1;
         level[root] = 0;
-        maxWeight[root][0] = 0.0;
-        dfs(root, -1); //set parent[] and level[]
+        maxWeight[root][0] = NEG_INF;
+        rootID[root] = root;
+        dfs(root, -1, root); //set parent[] and level[]
     }
     //build binary lifting tables
     for (int i = 1; i < log; ++i) {
@@ -108,5 +113,3 @@ void LCA::preprocessing() {
         }
     }
 }
-
-//nothing

@@ -28,10 +28,10 @@ class LCA {
     std::vector<int> level;                    //level of each node in the tree (depth)
     std::vector<std::vector<int>> up;           //up[i][j]: the 2^j-th ancestor of node i
     std::vector<std::vector<double>> maxWeight; //maxWeight[v][j]: max edge weight from v to its 2^j-th ancestor  
-    
+    std::vector<int> rootID; //store root (component) ID of node
     //helper functions
     //compute dfs traversal to set parent and level arrays
-    void dfs(int u, int p); //u: node, p: parent of u
+    void dfs(int u, int p, int r); //u: node, p: parent of u, r: root of u
 
     //preprocessing to fill lca and maxWeight tables
     void preprocessing();

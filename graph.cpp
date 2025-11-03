@@ -4,7 +4,11 @@
 #include <string>
 #include <queue>
 #include <algorithm>
-
+#include <unordered_map>
+#include <fstream>
+#include <utility>
+#include <functional>
+#include <iostream>
 // Graph member functions
 Graph::Graph() = default;
 
@@ -12,6 +16,25 @@ Graph::Graph(int n, std::vector<Edge> vec)
              : adjList {std::vector<std::set<Edge> >(n)}, nextEdgeId {0} {
   for (const Edge& e : vec) {
     addEdge(e);
+  }
+}
+Graph::Graph(const std::string& inputFile) {
+  std::ifstream infile {inputFile};
+  if (!infile) {
+    std::cerr << inputFile << " could not be opened\n";
+    return;
+  }
+  // first line has number of vertices N
+  int N {};
+  infile >> N;
+  adjList.resize(N);
+  int i {};
+  int j {};
+  double weight {};
+  // assume each remaining line is of form
+  // origin dest weight
+  while (infile >> i >> j >> weight) {
+    addEdge({weight, i, j});
   }
 }
 
@@ -56,4 +79,19 @@ const Graph::Edge &Graph::edgeByID(int edgeId) const {
   return idOriginal.at(edgeId);
 }
 
-//nothing
+// print out adjacency list of a Graph
+std::ostream& operator<<(std::ostream& out, const Graph& G) {
+  for (Graph::iterator it = G.begin(); it != G.end(); ++it) {
+    for (const Graph::Edge& e : *it) {
+      std::cout << e << ' ';
+    }
+    std::cout << '\n';
+  }
+  return out;
+}
+
+// print out an Edge
+std::ostream& operator<<(std::ostream& out, const Graph::Edge& e) {
+  out << '{' << e.v1 << ", " << e.v2 << "}[" << e.weight << ']';
+  return out;
+}

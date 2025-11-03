@@ -32,6 +32,9 @@ class Graph {
   // a vector of edges
   explicit Graph(int n, std::vector<Edge> = {});
 
+  // read list of edges in from a file
+  explicit Graph(const std::string& inputFile);
+
   void addEdge(Edge);
   int numVertices() const;
   double edgeWeightSum() const;
@@ -59,4 +62,3 @@ class Graph {
 
 #endif      // GRAPH_HPP_
 
-//nothing
