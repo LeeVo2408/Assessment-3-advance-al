@@ -4,6 +4,7 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <unordered_map>
 
 // Class for undirected graphs with edge weights
 class Graph {
@@ -12,11 +13,10 @@ class Graph {
     double weight {};
     int v1 {};
     int v2 {};
-    int edgeId {};
-    // Define operator< for ordering edges in sets, ignoring weight and edgeId
+    int edgeId {-1};
+    // Define operator< for ordering edges in sets
     bool operator<(const Edge& other) const {
         return std::tie(v1, v2, weight, edgeId) < std::tie(other.v1, other.v2, other.weight, other.edgeId);
-
     }
   };
 
@@ -58,3 +58,5 @@ class Graph {
 
 
 #endif      // GRAPH_HPP_
+
+//nothing
