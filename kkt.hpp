@@ -17,7 +17,7 @@ Graph kktMST(const Graph& G);
 
 //helper functions
 
-//hash function for pair<int, int> (GeeksforGeeks)
+//hash function for pair<int, int>
 struct pairhash {
 public:
   template <typename T, typename U>
