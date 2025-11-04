@@ -1,0 +1,620 @@
+Start testing: Nov 05 09:43 AUS Eastern Summer Time
+----------------------------------------------------------
+1/24 Testing: MstBoruvkaTest.EmptyGraph
+1/24 Test: MstBoruvkaTest.EmptyGraph
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstBoruvkaTest.EmptyGraph" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstBoruvkaTest.EmptyGraph" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstBoruvkaTest.EmptyGraph
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstBoruvkaTest
+[ RUN      ] MstBoruvkaTest.EmptyGraph
+[       OK ] MstBoruvkaTest.EmptyGraph (0 ms)
+[----------] 1 test from MstBoruvkaTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (3 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"MstBoruvkaTest.EmptyGraph" end time: Nov 05 09:43 AUS Eastern Summer Time
+"MstBoruvkaTest.EmptyGraph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/24 Testing: MstBoruvkaTest.noEdgeGraph
+2/24 Test: MstBoruvkaTest.noEdgeGraph
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstBoruvkaTest.noEdgeGraph" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstBoruvkaTest.noEdgeGraph" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstBoruvkaTest.noEdgeGraph
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstBoruvkaTest
+[ RUN      ] MstBoruvkaTest.noEdgeGraph
+[       OK ] MstBoruvkaTest.noEdgeGraph (0 ms)
+[----------] 1 test from MstBoruvkaTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"MstBoruvkaTest.noEdgeGraph" end time: Nov 05 09:43 AUS Eastern Summer Time
+"MstBoruvkaTest.noEdgeGraph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/24 Testing: BoruvkaTest.AustralianCities
+3/24 Test: BoruvkaTest.AustralianCities
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=BoruvkaTest.AustralianCities" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"BoruvkaTest.AustralianCities" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = BoruvkaTest.AustralianCities
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BoruvkaTest
+[ RUN      ] BoruvkaTest.AustralianCities
+[       OK ] BoruvkaTest.AustralianCities (0 ms)
+[----------] 1 test from BoruvkaTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"BoruvkaTest.AustralianCities" end time: Nov 05 09:43 AUS Eastern Summer Time
+"BoruvkaTest.AustralianCities" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/24 Testing: BoruvkaTest.tinyEWG
+4/24 Test: BoruvkaTest.tinyEWG
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=BoruvkaTest.tinyEWG" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"BoruvkaTest.tinyEWG" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = BoruvkaTest.tinyEWG
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BoruvkaTest
+[ RUN      ] BoruvkaTest.tinyEWG
+[       OK ] BoruvkaTest.tinyEWG (0 ms)
+[----------] 1 test from BoruvkaTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"BoruvkaTest.tinyEWG" end time: Nov 05 09:43 AUS Eastern Summer Time
+"BoruvkaTest.tinyEWG" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/24 Testing: BoruvkaTest.disconnectedGraph
+5/24 Test: BoruvkaTest.disconnectedGraph
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=BoruvkaTest.disconnectedGraph" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"BoruvkaTest.disconnectedGraph" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = BoruvkaTest.disconnectedGraph
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BoruvkaTest
+[ RUN      ] BoruvkaTest.disconnectedGraph
+[       OK ] BoruvkaTest.disconnectedGraph (0 ms)
+[----------] 1 test from BoruvkaTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"BoruvkaTest.disconnectedGraph" end time: Nov 05 09:43 AUS Eastern Summer Time
+"BoruvkaTest.disconnectedGraph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/24 Testing: MstTest.mediumEWG
+6/24 Test: MstTest.mediumEWG
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstTest.mediumEWG" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstTest.mediumEWG" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstTest.mediumEWG
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstTest
+[ RUN      ] MstTest.mediumEWG
+mediumEWG.txt could not be opened
+C:\Users\letha\Documents\UTS\Advanced Algorithms\assessment 3\Assessment-3-advance-al\mainTest.cpp(68): error: The difference between primsMST.edgeWeightSum() and 10.46351 is 10.463509999999999, which exceeds 0.00001, where
+primsMST.edgeWeightSum() evaluates to 0,
+10.46351 evaluates to 10.463509999999999, and
+0.00001 evaluates to 1.0000000000000001e-05.
+
+[  FAILED  ] MstTest.mediumEWG (4 ms)
+[----------] 1 test from MstTest (4 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (4 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] MstTest.mediumEWG
+
+ 1 FAILED TEST
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Failed.
+"MstTest.mediumEWG" end time: Nov 05 09:43 AUS Eastern Summer Time
+"MstTest.mediumEWG" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/24 Testing: MstTest.smallRandomEuclidean
+7/24 Test: MstTest.smallRandomEuclidean
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstTest.smallRandomEuclidean" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstTest.smallRandomEuclidean" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstTest.smallRandomEuclidean
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstTest
+[ RUN      ] MstTest.smallRandomEuclidean
+[       OK ] MstTest.smallRandomEuclidean (1 ms)
+[----------] 1 test from MstTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"MstTest.smallRandomEuclidean" end time: Nov 05 09:43 AUS Eastern Summer Time
+"MstTest.smallRandomEuclidean" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/24 Testing: MstTest.smallRandomEuclidean2
+8/24 Test: MstTest.smallRandomEuclidean2
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstTest.smallRandomEuclidean2" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstTest.smallRandomEuclidean2" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstTest.smallRandomEuclidean2
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstTest
+[ RUN      ] MstTest.smallRandomEuclidean2
+[       OK ] MstTest.smallRandomEuclidean2 (0 ms)
+[----------] 1 test from MstTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"MstTest.smallRandomEuclidean2" end time: Nov 05 09:43 AUS Eastern Summer Time
+"MstTest.smallRandomEuclidean2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/24 Testing: MstTest.mediumRandomEuclidean
+9/24 Test: MstTest.mediumRandomEuclidean
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstTest.mediumRandomEuclidean" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstTest.mediumRandomEuclidean" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstTest.mediumRandomEuclidean
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstTest
+[ RUN      ] MstTest.mediumRandomEuclidean
+[       OK ] MstTest.mediumRandomEuclidean (19 ms)
+[----------] 1 test from MstTest (19 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (19 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"MstTest.mediumRandomEuclidean" end time: Nov 05 09:43 AUS Eastern Summer Time
+"MstTest.mediumRandomEuclidean" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/24 Testing: MstTest.largeRandomEuclidean
+10/24 Test: MstTest.largeRandomEuclidean
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstTest.largeRandomEuclidean" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstTest.largeRandomEuclidean" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstTest.largeRandomEuclidean
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstTest
+[ RUN      ] MstTest.largeRandomEuclidean
+[       OK ] MstTest.largeRandomEuclidean (205 ms)
+[----------] 1 test from MstTest (205 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (206 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.33 sec
+----------------------------------------------------------
+Test Passed.
+"MstTest.largeRandomEuclidean" end time: Nov 05 09:43 AUS Eastern Summer Time
+"MstTest.largeRandomEuclidean" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/24 Testing: MstTest.largeSparseRandomEuclidean
+11/24 Test: MstTest.largeSparseRandomEuclidean
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstTest.largeSparseRandomEuclidean" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstTest.largeSparseRandomEuclidean" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstTest.largeSparseRandomEuclidean
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstTest
+[ RUN      ] MstTest.largeSparseRandomEuclidean
+[       OK ] MstTest.largeSparseRandomEuclidean (43 ms)
+[----------] 1 test from MstTest (43 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (44 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"MstTest.largeSparseRandomEuclidean" end time: Nov 05 09:43 AUS Eastern Summer Time
+"MstTest.largeSparseRandomEuclidean" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/24 Testing: MstTest.100KVertices
+12/24 Test: MstTest.100KVertices
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=MstTest.100KVertices" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"MstTest.100KVertices" start time: Nov 05 09:43 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = MstTest.100KVertices
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MstTest
+[ RUN      ] MstTest.100KVertices
+[       OK ] MstTest.100KVertices (37383 ms)
+[----------] 1 test from MstTest (37383 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (37383 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =  37.40 sec
+----------------------------------------------------------
+Test Passed.
+"MstTest.100KVertices" end time: Nov 05 09:44 AUS Eastern Summer Time
+"MstTest.100KVertices" time elapsed: 00:00:37
+----------------------------------------------------------
+
+13/24 Testing: kktMST.EmptyGraph
+13/24 Test: kktMST.EmptyGraph
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=kktMST.EmptyGraph" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"kktMST.EmptyGraph" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = kktMST.EmptyGraph
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from kktMST
+[ RUN      ] kktMST.EmptyGraph
+[       OK ] kktMST.EmptyGraph (0 ms)
+[----------] 1 test from kktMST (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"kktMST.EmptyGraph" end time: Nov 05 09:44 AUS Eastern Summer Time
+"kktMST.EmptyGraph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/24 Testing: kktMST.noEdgeGraph
+14/24 Test: kktMST.noEdgeGraph
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=kktMST.noEdgeGraph" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"kktMST.noEdgeGraph" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = kktMST.noEdgeGraph
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from kktMST
+[ RUN      ] kktMST.noEdgeGraph
+[       OK ] kktMST.noEdgeGraph (0 ms)
+[----------] 1 test from kktMST (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"kktMST.noEdgeGraph" end time: Nov 05 09:44 AUS Eastern Summer Time
+"kktMST.noEdgeGraph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/24 Testing: KktTest.AustralianCities
+15/24 Test: KktTest.AustralianCities
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.AustralianCities" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.AustralianCities" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.AustralianCities
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.AustralianCities
+[       OK ] KktTest.AustralianCities (0 ms)
+[----------] 1 test from KktTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"KktTest.AustralianCities" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.AustralianCities" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/24 Testing: KktTest.tinyEWG
+16/24 Test: KktTest.tinyEWG
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.tinyEWG" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.tinyEWG" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.tinyEWG
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.tinyEWG
+[       OK ] KktTest.tinyEWG (0 ms)
+[----------] 1 test from KktTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"KktTest.tinyEWG" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.tinyEWG" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/24 Testing: KktTest.disconnectedGraph
+17/24 Test: KktTest.disconnectedGraph
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.disconnectedGraph" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.disconnectedGraph" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.disconnectedGraph
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.disconnectedGraph
+[       OK ] KktTest.disconnectedGraph (0 ms)
+[----------] 1 test from KktTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"KktTest.disconnectedGraph" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.disconnectedGraph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/24 Testing: KktTest.mediumEWG
+18/24 Test: KktTest.mediumEWG
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.mediumEWG" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.mediumEWG" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.mediumEWG
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.mediumEWG
+mediumEWG.txt could not be opened
+C:\Users\letha\Documents\UTS\Advanced Algorithms\assessment 3\Assessment-3-advance-al\mainTest.cpp(236): error: The difference between primsMST.edgeWeightSum() and 10.46351 is 10.463509999999999, which exceeds 0.00001, where
+primsMST.edgeWeightSum() evaluates to 0,
+10.46351 evaluates to 10.463509999999999, and
+0.00001 evaluates to 1.0000000000000001e-05.
+
+[  FAILED  ] KktTest.mediumEWG (0 ms)
+[----------] 1 test from KktTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] KktTest.mediumEWG
+
+ 1 FAILED TEST
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"KktTest.mediumEWG" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.mediumEWG" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/24 Testing: KktTest.smallRandomEuclidean
+19/24 Test: KktTest.smallRandomEuclidean
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.smallRandomEuclidean" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.smallRandomEuclidean" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.smallRandomEuclidean
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.smallRandomEuclidean
+[       OK ] KktTest.smallRandomEuclidean (0 ms)
+[----------] 1 test from KktTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"KktTest.smallRandomEuclidean" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.smallRandomEuclidean" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/24 Testing: KktTest.smallRandomEuclidean2
+20/24 Test: KktTest.smallRandomEuclidean2
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.smallRandomEuclidean2" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.smallRandomEuclidean2" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.smallRandomEuclidean2
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.smallRandomEuclidean2
+[       OK ] KktTest.smallRandomEuclidean2 (1 ms)
+[----------] 1 test from KktTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"KktTest.smallRandomEuclidean2" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.smallRandomEuclidean2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/24 Testing: KktTest.mediumRandomEuclidean
+21/24 Test: KktTest.mediumRandomEuclidean
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.mediumRandomEuclidean" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.mediumRandomEuclidean" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.mediumRandomEuclidean
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.mediumRandomEuclidean
+[       OK ] KktTest.mediumRandomEuclidean (25 ms)
+[----------] 1 test from KktTest (25 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (26 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"KktTest.mediumRandomEuclidean" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.mediumRandomEuclidean" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/24 Testing: KktTest.largeRandomEuclidean
+22/24 Test: KktTest.largeRandomEuclidean
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.largeRandomEuclidean" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.largeRandomEuclidean" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.largeRandomEuclidean
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.largeRandomEuclidean
+[       OK ] KktTest.largeRandomEuclidean (245 ms)
+[----------] 1 test from KktTest (245 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (245 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.26 sec
+----------------------------------------------------------
+Test Passed.
+"KktTest.largeRandomEuclidean" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.largeRandomEuclidean" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/24 Testing: KktTest.largeSparseRandomEuclidean
+23/24 Test: KktTest.largeSparseRandomEuclidean
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=KktTest.largeSparseRandomEuclidean" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"KktTest.largeSparseRandomEuclidean" start time: Nov 05 09:44 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Note: Google Test filter = KktTest.largeSparseRandomEuclidean
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from KktTest
+[ RUN      ] KktTest.largeSparseRandomEuclidean
+[       OK ] KktTest.largeSparseRandomEuclidean (53 ms)
+[----------] 1 test from KktTest (53 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (54 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"KktTest.largeSparseRandomEuclidean" end time: Nov 05 09:44 AUS Eastern Summer Time
+"KktTest.largeSparseRandomEuclidean" time elapsed: 00:00:00
+----------------------------------------------------------
+

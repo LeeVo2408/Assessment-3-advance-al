@@ -12,6 +12,17 @@
 
 
 // ! boruvka TEST 
+TEST(MstBoruvkaTest, EmptyGraph) {
+  Graph G(0);
+  Graph mst = boruvkaMST(G);
+  EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
+}
+
+TEST(MstBoruvkaTest, noEdgeGraph) {
+  Graph G(9, {});
+  Graph mst = boruvkaMST(G);
+  EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
+}
 
 TEST(BoruvkaTest, AustralianCities) {
   Graph G {7, {{2600, 0, 1}, {3600, 0, 2}, {2800, 1, 3}, {3000, 1, 5},
@@ -156,7 +167,31 @@ TEST(MstTest, largeSparseRandomEuclidean) {
   EXPECT_NEAR(primsMST.edgeWeightSum(), 339061.30473209539,  0.00001);
 }
 
+TEST(MstTest, 100KVertices) {
+  const int N = 100'000;
+  const int numEdges = 2'500'000;
+  unsigned seed = 223'238;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  Graph mst_res = computePrimsMST(G);
+  EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
+}
+
+
 // ! KKT TEST 
+
+TEST(kktMST, EmptyGraph) {
+  Graph G(0);
+  Graph mst = kktMST(G);
+  EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
+}
+
+TEST(kktMST, noEdgeGraph) {
+  Graph G(9, {});
+  Graph mst = kktMST(G);
+  EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
+}
+
 
 TEST(KktTest, AustralianCities) {
   Graph G {7, {{2600, 0, 1}, {3600, 0, 2}, {2800, 1, 3}, {3000, 1, 5},
@@ -275,6 +310,17 @@ TEST(KktTest, largeSparseRandomEuclidean) {
   EXPECT_NEAR(mst.edgeWeightSum(), primsMST.edgeWeightSum(), 0.00001);
   EXPECT_NEAR(mst.edgeWeightSum(), krusalMST.edgeWeightSum(),  0.00001);
   EXPECT_NEAR(primsMST.edgeWeightSum(), 339061.30473209539,  0.00001);
+}
+
+
+TEST(kktTest, 100KVertices) {
+  const int N = 100'000;
+  const int numEdges = 2'500'000;
+  unsigned seed = 223'238;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = kktMST(G);
+  Graph mst_res = computePrimsMST(G);
+  EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
 
 int main(int argc, char* argv[]) {

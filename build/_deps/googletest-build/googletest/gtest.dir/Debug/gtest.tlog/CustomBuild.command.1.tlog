@@ -1,0 +1,10 @@
+^C:\USERS\LETHA\DOCUMENTS\UTS\ADVANCED ALGORITHMS\ASSESSMENT 3\ASSESSMENT-3-ADVANCE-AL\BUILD\_DEPS\GOOGLETEST-SRC\GOOGLETEST\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al" "-BC:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build" --check-stamp-file "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/_deps/googletest-build/googletest/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
