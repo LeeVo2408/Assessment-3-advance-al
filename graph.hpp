@@ -19,7 +19,7 @@ class Graph {
   };
 
  private:
-  std::vector<std::set<Edge> > adjList {};
+  std::vector<std::vector<Edge> > adjList {};
   int nextEdgeId {}; // to assign unique edge IDs
   std::unordered_map<int,Edge> idOriginal; //original edge by id
 
@@ -37,7 +37,7 @@ class Graph {
   int numVertices() const;
   double edgeWeightSum() const;
 
-  using iterator = std::vector<std::set<Edge> >::const_iterator;
+  using iterator = std::vector<std::vector<Edge> >::const_iterator;
 
   // cbegin returns const iterator pointing to first element of adjList
   iterator begin() const {

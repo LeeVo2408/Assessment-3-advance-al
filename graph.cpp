@@ -9,15 +9,19 @@
 #include <utility>
 #include <functional>
 #include <iostream>
+
+
 // Graph member functions
 Graph::Graph() = default;
 
 Graph::Graph(int n, std::vector<Edge> vec)
-             : adjList {std::vector<std::set<Edge> >(n)}, nextEdgeId {0} {
+             : adjList {std::vector<std::vector<Edge> >(n)}, nextEdgeId {0} {
   for (const Edge& e : vec) {
     addEdge(e);
   }
 }
+
+
 Graph::Graph(const std::string& inputFile) {
   std::ifstream infile {inputFile};
   if (!infile) {
@@ -55,8 +59,8 @@ void Graph::addEdge(Edge e) {
       idOriginal.insert({e.edgeId, e});
     }
 
-    adjList.at(e.v1).insert(e);
-    adjList.at(e.v2).insert(e);
+    adjList.at(e.v1).push_back(e);
+    adjList.at(e.v2).push_back(e);
   }
 }
 

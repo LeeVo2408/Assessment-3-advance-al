@@ -26,8 +26,8 @@ LCA::LCA(const Graph& F) {
     //construct adjacency list from graph F
     for (auto it = F.begin(); it != F.end(); ++it) {
         for (auto e : *it) {
-            adjList[e.v1].insert(e);
-            adjList[e.v2].insert(e);
+            adjList[e.v1].push_back(e);
+            adjList[e.v2].push_back(e);
         }
     }
     //build the tables

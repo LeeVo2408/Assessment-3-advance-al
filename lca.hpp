@@ -9,7 +9,7 @@
 //Using Binary Lifting method instructed on GeeksforGeeks
 //https://www.geeksforgeeks.org/dsa/query-to-find-the-maximum-and-minimum-weight-between-two-nodes-in-the-given-tree-using-lca/
 
-
+//O(nlogn) preprocessing and O(logn) per query
 class LCA {
     public:
     //default constructor
@@ -23,7 +23,7 @@ class LCA {
     private:
     int n;                              //number of nodes in the tree
     int log;                            //max power of 2
-    std::vector<std::set<Graph::Edge>> adjList {};
+    std::vector<std::vector<Graph::Edge>> adjList {};
     std::vector<int> parent;                //parent of each node
     std::vector<int> level;                    //level of each node in the tree (depth)
     std::vector<std::vector<int>> up;           //up[i][j]: the 2^j-th ancestor of node i
