@@ -15,21 +15,5 @@ bool randomChoice();
 //KKT MST algorithm
 Graph kktMST(const Graph& G);
 
-//helper functions
-
-//hash function for pair<int, int>
-struct pairhash {
-public:
-  template <typename T, typename U>
-  std::size_t operator()(const std::pair<T, U> &x) const
-  {
-    return std::hash<T>()(x.first) ^ std::hash<U>()(x.second);
-  }
-};
-
-//make an ordered pair (smaller value first)
-std::pair<int, int> makeOrderedPair(int a, int b);
-
 #endif      //KKT_HPP_
 
-//nothing

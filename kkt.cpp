@@ -62,8 +62,7 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
         }
     }
 
-    std::unordered_map<std::pair<int,int>, Graph::Edge, pairhash> lightest;
-    //now add edges to the contracted graph
+    std::vector<Graph::Edge> superEdges; //storing the edges between supernodes
     for (int u = 0; u < n; ++u) {
         for (auto e : *G.neighbours(u)) {
             if (u != e.v1) continue;                    //avoid duplicate edge
@@ -71,16 +70,29 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
             int sv = vertexSuperNode[e.v2];             //supernode of vertex v
 
             if (su == sv) continue;                     //both endpoints are in same supernode (delete self-loop)
-            std::pair<int,int> k = makeOrderedPair(su, sv);
-            if (!lightest.count(k) || lightest.at(k).weight > e.weight) {
-                lightest[k] = {e.weight, su, sv, e.edgeId};
-            }
+            if (su > sv) std::swap(su,sv);
+            superEdges.push_back({e.weight, su, sv, e.edgeId}); //O(1)
         }
     }
 
+    //sort so that the parallel edges of (su, sv) is contiguous and ordered by ascending weight
+    //about O(nlogn)
+    std::sort(superEdges.begin(), superEdges.end(), [] (const auto& su, const auto& sv) {return su.v1 < sv.v1
+                                                                                            ||  su.v1 == sv.v1 && su.v2 < sv.v2
+                                                                                            ||  su.v1 == sv.v1 && su.v2 == sv.v2 && su.weight < sv.weight; });
+
     Graph contracted(compCount);
-    for (const auto& e : lightest) {
-        contracted.addEdge(e.second);
+    //go through each (v1,v2) pairs and add the lightest edge to graph
+    for (size_t i = 0; i < superEdges.size();) {
+        contracted.addEdge(superEdges[i]); //add the first (lightest) edge of (su,sv)
+        size_t j = i + 1; //next edge index
+        //skip through the parallel edges
+        while (j < superEdges.size() &&
+                    superEdges[j].v1 == superEdges[i].v1 &&
+                    superEdges[j].v2 == superEdges[i].v2) {
+            ++j;
+        }
+        i = j;
     }
     return {chosen, contracted};
 }
@@ -98,18 +110,8 @@ Graph kktMST(const Graph& G) {
     //base case
     if (n <= 1) return mst;
     
-    // Check if graph has any edges (or check weight sum =0, depending on if weights is trictly positive or not)
-    //might also make some edge count function in Graph class
-    bool hasEdges = false;
-    for (int u = 0; u < n && !hasEdges; ++u) {
-        for (auto e : *G.neighbours(u)) {
-            if (u == e.v1) {
-                hasEdges = true;
-                break;
-            }
-        }
-    }
-    if (!hasEdges) return mst;
+    // Check if graph has any edges
+    if (G.edgeWeightSum()==0) return mst;
 
     //running 2 Boruvka steps on G
     auto s1 = boruvkaStep(G);
@@ -164,11 +166,4 @@ Graph kktMST(const Graph& G) {
     }
 
     return mst;
-}
-
-//helper functions
-
-std::pair<int, int> makeOrderedPair(int a, int b) {
-    if (a > b) std::swap(a, b);
-    return {a, b};
 }
