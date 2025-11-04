@@ -1,0 +1,30 @@
+Start testing: Nov 04 13:05 AUS Eastern Summer Time
+----------------------------------------------------------
+1/1 Testing: Simple.Works
+1/1 Test: Simple.Works
+Command: "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/Debug/AssessmentTests.exe" "--gtest_filter=Simple.Works" "--gtest_also_run_disabled_tests"
+Directory: C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build
+"Simple.Works" start time: Nov 04 13:05 AUS Eastern Summer Time
+Output:
+----------------------------------------------------------
+Running main() from C:\vcpkg\buildtrees\gtest\src\v1.17.0-0c449efaff.clean\googletest\src\gtest_main.cc
+Note: Google Test filter = Simple.Works
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Simple
+[ RUN      ] Simple.Works
+[       OK ] Simple.Works (0 ms)
+[----------] 1 test from Simple (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"Simple.Works" end time: Nov 04 13:05 AUS Eastern Summer Time
+"Simple.Works" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 04 13:05 AUS Eastern Summer Time
