@@ -60,7 +60,7 @@ add_library(mst STATIC
 )
 target_include_directories(mst PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable(mst_tests mainTest.cpp)
+add_executable(mst_tests main.cpp)
 target_link_libraries(mst_tests PRIVATE mst GTest::gtest_main)
 
 include(CTest)
