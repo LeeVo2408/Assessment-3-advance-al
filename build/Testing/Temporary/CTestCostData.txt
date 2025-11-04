@@ -1,2 +1,23 @@
-Simple.Works 1 0.0107355
+Simple.Works 3 0.0370018
+MstTest.AustralianCities 2 0.0049539
+BoruvkaTest.AustralianCities 13 0.000868277
+BoruvkaTest.tinyEWG 13 0.0008178
+BoruvkaTest.disconnectedGraph 13 0.000854785
+MstTest.mediumEWG 0 0
+MstTest.smallRandomEuclidean 13 0.00884696
+MstTest.smallRandomEuclidean2 13 0.0008463
+MstTest.mediumRandomEuclidean 13 0.0109895
+MstTest.largeRandomEuclidean 13 0.0214918
+MstTest.largeSparseRandomEuclidean 13 0.0048634
+KktTest.AustralianCities 3 0.0036373
+KktTest.tinyEWG 2 0.00532115
+KktTest.disconnectedGraph 2 0.00576575
+KktTest.mediumEWG 0 0
+KktTest.smallRandomEuclidean 1 0.0117185
+KktTest.smallRandomEuclidean2 1 0.0123201
+KktTest.mediumRandomEuclidean 1 0.0448458
+KktTest.largeRandomEuclidean 1 0.384536
+KktTest.largeSparseRandomEuclidean 1 0.196426
 ---
+MstTest.mediumEWG
+KktTest.mediumEWG
