@@ -1,5 +1,0 @@
-if(EXISTS "C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/mst_tests[1]_tests.cmake")
-  include("C:/Users/letha/Documents/UTS/Advanced Algorithms/assessment 3/Assessment-3-advance-al/build/mst_tests[1]_tests.cmake")
-else()
-  add_test(mst_tests_NOT_BUILT mst_tests_NOT_BUILT)
-endif()
