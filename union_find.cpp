@@ -9,13 +9,22 @@ UnionFind::UnionFind(int N) : parent(N),
     std::iota(parent.begin(), parent.end(), 0);
 }
 
+//union find with union by rank and path compression
 int UnionFind::find(int element) {
-    //while element is not the root, apply path compression
-    if (parent[element] != element) {
-        parent[element] = find(parent[element]);
+    //Find the root of the current set
+    int root = element;
+    while (parent[root] != root) {
+        root = parent[root]; 
     }
-    return parent[element];
+    //Path compression
+    while (parent[element] != element) {
+        int next = parent[element];
+        parent[element] = root;
+        element = next;
+    }
+    return root;
 }
+
 
 void UnionFind::merge(int element1, int element2) {
     int comp1 = find(element1);
