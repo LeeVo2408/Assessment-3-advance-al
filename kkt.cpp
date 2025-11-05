@@ -62,19 +62,6 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
         }
     }
 
-    std::vector<Graph::Edge> superEdges; //storing the edges between supernodes
-    for (int u = 0; u < n; ++u) {
-        for (auto e : *G.neighbours(u)) {
-            if (u != e.v1) continue;                    //avoid duplicate edge
-            int su = vertexSuperNode[u];                //supernode of vertex u
-            int sv = vertexSuperNode[e.v2];             //supernode of vertex v
-
-            if (su == sv) continue;                     //both endpoints are in same supernode (delete self-loop)
-            if (su > sv) std::swap(su,sv);
-            superEdges.push_back({e.weight, su, sv, e.edgeId}); //O(1)
-        }
-    }
-
     std::unordered_map<std::pair<int,int>, Graph::Edge, pairhash> lightest;
     lightest.reserve(n*4);
     //now add edges to the contracted graph
@@ -96,7 +83,7 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
     for (const auto& e : lightest) {
         contracted.addEdge(e.second);
     }
-    
+
     return {chosen, contracted};
 }
 
