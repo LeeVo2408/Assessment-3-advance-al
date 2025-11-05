@@ -79,6 +79,7 @@ double Graph::edgeWeightSum() const {
   return totalWeight/2;
 }
 
+//get original edge in G from edgeID
 const Graph::Edge &Graph::edgeByID(int edgeId) const {
   return idOriginal.at(edgeId);
 }

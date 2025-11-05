@@ -14,7 +14,7 @@ class Graph {
     double weight {};
     int v1 {};
     int v2 {};
-    int edgeId {-1};
+    int edgeId {-1};  //edgeID to keep track of the edges after contraction
     auto operator<=>(const Edge&) const = default;
   };
 

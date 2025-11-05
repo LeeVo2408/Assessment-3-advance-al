@@ -131,10 +131,10 @@ Graph kktMST(const Graph& G) {
             }
         }
     }
-    //recursive call on H
+    //recursive call on H to find MSF of subproblem
     Graph F = kktMST(H);
 
-    //find F-heavy edges in G_prime and remove them
+    //find F-heavy edges in G1 and remove them
     LCA lca(F); 
     Graph G2(G1.numVertices()); //graph after removing F-heavy edges
 
@@ -146,7 +146,7 @@ Graph kktMST(const Graph& G) {
             G2.addEdge(e);
         }
     }
-    //recursive call on G2
+    //recursive call on G2 to find MSF
     Graph F2 = kktMST(G2);
     
     //mst is union of F2 and B

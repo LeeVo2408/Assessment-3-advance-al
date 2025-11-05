@@ -8,8 +8,8 @@
 //LCA class to find heaviest edge in path between two nodes in a tree
 //Using Binary Lifting method instructed on GeeksforGeeks
 //https://www.geeksforgeeks.org/dsa/query-to-find-the-maximum-and-minimum-weight-between-two-nodes-in-the-given-tree-using-lca/
-
 //O(nlogn) preprocessing and O(logn) per query
+
 class LCA {
     public:
     //default constructor
