@@ -75,25 +75,28 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
         }
     }
 
-    //sort so that the parallel edges of (su, sv) is contiguous and ordered by ascending weight
-    //about O(nlogn)
-    std::sort(superEdges.begin(), superEdges.end(), [] (const auto& su, const auto& sv) {return su.v1 < sv.v1
-                                                                                            ||  su.v1 == sv.v1 && su.v2 < sv.v2
-                                                                                            ||  su.v1 == sv.v1 && su.v2 == sv.v2 && su.weight < sv.weight; });
+    std::unordered_map<std::pair<int,int>, Graph::Edge, pairhash> lightest;
+    lightest.reserve(n*4);
+    //now add edges to the contracted graph
+    for (int u = 0; u < n; ++u) {
+        for (auto e : *G.neighbours(u)) {
+            if (u != e.v1) continue;                    //avoid duplicate edge
+            int su = vertexSuperNode[u];                //supernode of vertex u
+            int sv = vertexSuperNode[e.v2];             //supernode of vertex v
+
+            if (su == sv) continue;                     //both endpoints are in same supernode (delete self-loop)
+            std::pair<int,int> k = makeOrderedPair(su, sv);
+            if (!lightest.count(k) || lightest.at(k).weight > e.weight) {
+                lightest[k] = {e.weight, su, sv, e.edgeId};
+            }
+        }
+    }
 
     Graph contracted(compCount);
-    //go through each (v1,v2) pairs and add the lightest edge to graph
-    for (size_t i = 0; i < superEdges.size();) {
-        contracted.addEdge(superEdges[i]); //add the first (lightest) edge of (su,sv)
-        size_t j = i + 1; //next edge index
-        //skip through the parallel edges
-        while (j < superEdges.size() &&
-                    superEdges[j].v1 == superEdges[i].v1 &&
-                    superEdges[j].v2 == superEdges[i].v2) {
-            ++j;
-        }
-        i = j;
+    for (const auto& e : lightest) {
+        contracted.addEdge(e.second);
     }
+    
     return {chosen, contracted};
 }
 
@@ -166,4 +169,12 @@ Graph kktMST(const Graph& G) {
     }
 
     return mst;
+}
+
+
+//helper functions
+
+std::pair<int, int> makeOrderedPair(int a, int b) {
+    if (a > b) std::swap(a, b);
+    return {a, b};
 }
