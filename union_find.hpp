@@ -8,6 +8,7 @@ class UnionFind {
     private:
      std::vector<int> parent;
      std::vector<int> sizes;
+     std::vector<int> ranks;
      int componentsCount;
     public:
      explicit UnionFind(int N);

@@ -5,6 +5,7 @@
 
 UnionFind::UnionFind(int N) : parent(N),
                               sizes(N, 1),
+                              ranks(N,0),
                               componentsCount(N) {
     std::iota(parent.begin(), parent.end(), 0);
 }
@@ -27,19 +28,18 @@ int UnionFind::find(int element) {
 
 
 void UnionFind::merge(int element1, int element2) {
-    int comp1 = find(element1);
-    int comp2 = find(element2);
-    if (comp1 == comp2) {
+    int root1 = find(element1);
+    int root2 = find(element2);
+    if (root1 == root2) {
         return;
     }
-    if (sizes[comp1] < sizes[comp2]) {
-        parent[comp1] = comp2;
-        sizes[comp2] += sizes[comp1];
-    }
-
-    else {
-        parent[comp2] = comp1;
-        sizes[comp1] += sizes[comp2];
+    if (ranks[root1] < ranks[root2]) {
+        parent[root1] = root2;
+    } else if (ranks[root1] > ranks[root2]) {
+        parent[root2] = root1;
+    } else { // Ranks are equal
+        parent[root2] = root1; 
+        ranks[root1]++;       
     }
     --componentsCount;
 }
