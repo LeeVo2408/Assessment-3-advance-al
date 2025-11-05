@@ -79,7 +79,7 @@ Graph primMST(const Graph& G) {
 }
 
 
-//Boruvka
+//===========Boruvka ALGORITHM TEST=================
 
 TEST(MstBoruvkaTest, EmptyGraph) {
   Graph G(0);
@@ -91,6 +91,13 @@ TEST(MstBoruvkaTest, noEdgeGraph) {
   Graph G(9, {});
   Graph mst = boruvkaMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
+}
+
+TEST(MstBoruvkaTest, allEdgesSameWeight) {
+  Graph G{7, {{5, 0,1}, {5, 0, 2}, {5, 1, 3}, {5, 1, 5}, {5, 2, 3}, {5, 2, 4}, {5, 3, 4}, 
+              {5, 4, 5}, {880, 4, 5}, {5, 4, 6}, {5, 5, 6}}};
+  Graph mst = boruvkaMST(G);
+  EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 30);
 }
 
 TEST(MstBoruvkaTest, AustralianCities) {
@@ -231,7 +238,7 @@ TEST(MstTest, 100KVertices) {
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
 
-//KKT test
+//===========RANDOMISED ALGORITHM TEST=================
 
 TEST(kktMST, EmptyGraph) {
   Graph G(0);
@@ -245,23 +252,19 @@ TEST(kktMST, noEdgeGraph) {
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
 }
 
+TEST(kktMST, allEdgesSameWeight) {
+  Graph G{7, {{5, 0,1}, {5, 0, 2}, {5, 1, 3}, {5, 1, 5}, {5, 2, 3}, {5, 2, 4}, {5, 3, 4}, 
+              {5, 4, 5}, {880, 4, 5}, {5, 4, 6}, {5, 5, 6}}};
+  Graph mst = kktMST(G);
+  EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 30);
+}
+
 TEST(kktMST, AustralianCities) {
   Graph G {7, {{2600, 0, 1}, {3600, 0, 2}, {2800, 1, 3}, {3000, 1, 5},
                {1400, 2, 3}, {1900, 2, 4}, {900, 3, 4}, {880, 4, 5},
                {1000, 4, 6}, {700, 5, 6}}};
   Graph mst = kktMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 9280);
-  /*
-  minimum spanning tree should look like this:
-  Neighbors of 0: {0,1}[2600]
-  Neighbors of 1: {1,3}[2800] {0,1}[2600]
-  Neighbors of 2: {2,3}[1400]
-  Neighbors of 3: {2,3}[1400] {3,4}[900] {1,3}[2800]
-  Neighbors of 4: {4,5}[880] {3,4}[900]
-  Neighbors of 5: {5,6}[700] {4,5}[880]
-  Neighbors of 6: {5,6}[700]
-  Edge weight sum is 9280
-  */
 }
 
 // example test case from Algorithms by Sedgewick and Wayne
@@ -272,18 +275,6 @@ TEST(kktMST, tinyEWG) {
                {0.40, 6, 2}, {0.52, 3, 6}, {0.58, 6, 0}, {0.93, 6, 4}}};
   Graph mst = kktMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 1.81);
-  /*
-  minimum spanning tree should look like this:
-  Neighbors of 0: {0,2}[0.26] {0,7}[0.16]
-  Neighbors of 1: {1,7}[0.19]
-  Neighbors of 2: {6,2}[0.4] {2,3}[0.17] {0,2}[0.26]
-  Neighbors of 3: {2,3}[0.17]
-  Neighbors of 4: {4,5}[0.35]
-  Neighbors of 5: {4,5}[0.35] {5,7}[0.28]
-  Neighbors of 6: {6,2}[0.4]
-  Neighbors of 7: {5,7}[0.28] {1,7}[0.19] {0,7}[0.16]
-  Edge weight sum is 1.81
-  */
 }
 
 TEST(kktTest, disconnectedGraph) {
