@@ -26,7 +26,6 @@ bool verifyMST(const Graph& G, const Graph& mst) {
   return false;
 }
 
-
 //--------KNOWN ALGORITHMS FROM THE COURSE TO VERIFY RANDOM MST RESULTS----------------
 //Kruskal algorithm to check 
 Graph kruskalMST(const Graph& G) {
@@ -113,6 +112,14 @@ TEST(MstBoruvkaTest, allEdgesSameWeight) {
               {5, 4, 5}, {880, 4, 5}, {5, 4, 6}, {5, 5, 6}}};
   Graph mst = boruvkaMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 30);
+}
+
+TEST(MstBoruvkaTest, allEdgesSameWeightCycleProperty) {
+  Graph G{7, {{5, 0,1}, {5, 0, 2}, {5, 1, 3}, {5, 1, 5}, {5, 2, 3}, {5, 2, 4}, {5, 3, 4}, 
+              {5, 4, 5}, {880, 4, 5}, {5, 4, 6}, {5, 5, 6}}};  
+  Graph mst = boruvkaMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
 }
 
 TEST(MstBoruvkaTest, AustralianCities) {
@@ -293,7 +300,7 @@ TEST(MstBoruvkaTest, largeSparseRandomEuclideanCycleProperty) {
   EXPECT_TRUE(f);
 }  
 
-TEST(MstTest, 100KVertices) {
+TEST(MstBoruvkaTest, 100KVertices) {
   const int N = 100'000;
   const int numEdges = 2'500'000;
   unsigned seed = 223'238;
@@ -306,26 +313,34 @@ TEST(MstTest, 100KVertices) {
 
 //===========RANDOMISED ALGORITHM TEST=================
 
-TEST(kktMST, EmptyGraph) {
+TEST(mstKKTTest, EmptyGraph) {
   Graph G(0);
   Graph mst = kktMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
 }
 
-TEST(kktMST, noEdgeGraph) {
+TEST(mstKKTTest, noEdgeGraph) {
   Graph G(9, {});
   Graph mst = kktMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
 }
 
-TEST(kktMST, allEdgesSameWeight) {
+TEST(mstKKTTest, allEdgesSameWeight) {
   Graph G{7, {{5, 0,1}, {5, 0, 2}, {5, 1, 3}, {5, 1, 5}, {5, 2, 3}, {5, 2, 4}, {5, 3, 4}, 
               {5, 4, 5}, {880, 4, 5}, {5, 4, 6}, {5, 5, 6}}};
   Graph mst = kktMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 30);
 }
 
-TEST(kktMST, AustralianCities) {
+TEST(mstKKTTest, allEdgesSameWeightCycleProperty) {
+  Graph G{7, {{5, 0,1}, {5, 0, 2}, {5, 1, 3}, {5, 1, 5}, {5, 2, 3}, {5, 2, 4}, {5, 3, 4}, 
+              {5, 4, 5}, {880, 4, 5}, {5, 4, 6}, {5, 5, 6}}};  
+  Graph mst = boruvkaMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
+}
+
+TEST(mstKKTTest, AustralianCities) {
   Graph G {7, {{2600, 0, 1}, {3600, 0, 2}, {2800, 1, 3}, {3000, 1, 5},
                {1400, 2, 3}, {1900, 2, 4}, {900, 3, 4}, {880, 4, 5},
                {1000, 4, 6}, {700, 5, 6}}};
@@ -334,7 +349,7 @@ TEST(kktMST, AustralianCities) {
 }
 
 // example test case from Algorithms by Sedgewick and Wayne
-TEST(kktMST, tinyEWG) {
+TEST(mstKKTTest, tinyEWG) {
   Graph G {8, {{0.35, 4, 5}, {0.37, 4, 7}, {0.28, 5, 7}, {0.16, 0, 7},
                {0.32, 1, 5}, {0.38, 0, 4}, {0.17, 2, 3}, {0.19, 1, 7},
                {0.26, 0, 2}, {0.36, 1, 2}, {0.29, 1, 3}, {0.34, 2, 7},
@@ -343,7 +358,7 @@ TEST(kktMST, tinyEWG) {
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 1.81);
 }
 
-TEST(kktTest, disconnectedGraph) {
+TEST(mstKKTTest, disconnectedGraph) {
   Graph G {8, { {1, 0, 1}, {1, 1, 2}, {1, 2, 3}, {1, 4, 5}, {1, 5, 6},
                 {1, 6, 7} }};
   Graph mst = kktMST(G);
@@ -351,21 +366,21 @@ TEST(kktTest, disconnectedGraph) {
 }
 
 // larger test case from Algorithms by Sedgewick and Wayne
-TEST(kktTest, mediumEWG) {
+TEST(mstKKTTest, mediumEWG) {
   Graph G {"mediumEWG.txt"};
   Graph mst = kktMST(G);
   std::cout << mst.edgeWeightSum();
   EXPECT_NEAR(mst.edgeWeightSum(), 10.46351, 0.00001);
 }
 
-TEST(kktTest, mediumEWGCycleroperty) {
+TEST(mstKKTTest, mediumEWGCycleroperty) {
   Graph G {"mediumEWG.txt"};
   Graph mst = boruvkaMST(G);
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 }
 
-TEST(kktTest, smallRandomEuclidean) {
+TEST(mstKKTTest, smallRandomEuclidean) {
   const int N = 10;
   const int numEdges = 30;
   unsigned seed = 982'832;
@@ -375,7 +390,7 @@ TEST(kktTest, smallRandomEuclidean) {
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
 
-TEST(kktTest, smallRandomEuclideanCycleroperty) {
+TEST(mstKKTTest, smallRandomEuclideanCycleroperty) {
   const int N = 10;
   const int numEdges = 30;
   unsigned seed = 982'832;
@@ -385,7 +400,7 @@ TEST(kktTest, smallRandomEuclideanCycleroperty) {
   EXPECT_TRUE(f);
 } 
 
-TEST(kktTest, smallRandomEuclidean2) {
+TEST(mstKKTTest, smallRandomEuclidean2) {
   const int N = 15;
   const int numEdges = 50;
   unsigned seed = 892'893;
@@ -396,7 +411,7 @@ TEST(kktTest, smallRandomEuclidean2) {
 }
 
 
-TEST(kktTest, smallRandomEuclidean2CycleProperty) {
+TEST(mstKKTTest, smallRandomEuclidean2CycleProperty) {
   const int N = 15;
   const int numEdges = 50;
   unsigned seed = 892'893;
@@ -406,7 +421,7 @@ TEST(kktTest, smallRandomEuclidean2CycleProperty) {
   EXPECT_TRUE(f);
 } 
 
-TEST(kktTest, mediumRandomEuclidean) {
+TEST(mstKKTTest, mediumRandomEuclidean) {
   const int N = 250;
   const int numEdges = 1200;
   unsigned seed = 329'823;
@@ -415,7 +430,7 @@ TEST(kktTest, mediumRandomEuclidean) {
   Graph mst_res = primMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);}
 
-TEST(kktTest, mediumRandomEuclideanCycleProperty) {
+TEST(mstKKTTest, mediumRandomEuclideanCycleProperty) {
   const int N = 250;
   const int numEdges = 1200;
   unsigned seed = 329'823;
@@ -425,7 +440,7 @@ TEST(kktTest, mediumRandomEuclideanCycleProperty) {
   EXPECT_TRUE(f);
 } 
 
-TEST(kktTest, largeRandomEuclidean) {
+TEST(mstKKTTest, largeRandomEuclidean) {
   const int N = 1000;
   const int numEdges = 15'000;
   unsigned seed = 11'829'119;
@@ -435,7 +450,7 @@ TEST(kktTest, largeRandomEuclidean) {
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
 
-TEST(kktTest, largeRandomEuclideanCycleroperty) {
+TEST(mstKKTTest, largeRandomEuclideanCycleroperty) {
   const int N = 1000;
   const int numEdges = 15'000;
   unsigned seed = 11'829'119;
@@ -445,7 +460,7 @@ TEST(kktTest, largeRandomEuclideanCycleroperty) {
   EXPECT_TRUE(f);
 } 
 
-TEST(kktTest, largeSparseRandomEuclidean) {
+TEST(mstKKTTest, largeSparseRandomEuclidean) {
   const int N = 1000;
   const int numEdges = 2'000;
   unsigned seed = 823'238;
@@ -454,7 +469,7 @@ TEST(kktTest, largeSparseRandomEuclidean) {
   Graph mst_res = kruskalMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);}
 
-TEST(kktTest, largeSparseRandomEuclideanCycleProperty) {
+TEST(mstKKTTest, largeSparseRandomEuclideanCycleProperty) {
   const int N = 1000;
   const int numEdges = 2'000;
   unsigned seed = 823'238;
@@ -464,7 +479,7 @@ TEST(kktTest, largeSparseRandomEuclideanCycleProperty) {
   EXPECT_TRUE(f);
 } 
 
-TEST(kktTest, 100KVertices) {
+TEST(mstKKTTest, 100KVertices) {
   const int N = 100'000;
   const int numEdges = 2'500'000;
   unsigned seed = 223'238;
