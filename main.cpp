@@ -17,17 +17,9 @@
 bool verifyMST(const Graph& G, const Graph& mst) {
   LCA lca(mst);
   UnionFind uf(G.numVertices());
-  //build uf for mst
-  for (int u =0; u<mst.numVertices(); ++u) {
-    for (auto e : *mst.neighbours(u)) {
-        if (u != e.v1) continue;
-        uf.merge(e.v1, e.v2);
-    }
-  }
   for (int u = 0; u < G.numVertices(); ++u) {
     for (auto e : *G.neighbours(u)) {
         if (u != e.v1) continue;
-        if (!uf.sameSet(e.v1, e.v2)) continue;
         double maxW = lca.maxEdgeWeight(e.v1, e.v2);
         if (e.weight < maxW) return false;
     }
