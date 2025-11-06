@@ -10,6 +10,48 @@
 #include "boruvka.hpp"
 #include "union_find.hpp"
 #include <queue>
+#include <limits>
+
+double INF = std::numeric_limits<double>::infinity();
+//======ALGORITHM TO CHECK CUT PROPERTY=================
+bool verifyCutProperty(const Graph& G, const Graph& F) {
+    int n = G.numVertices();
+    //a copy of MST's edges
+    std::vector<Graph::Edge> H;
+    for (int u = 0; u < n; ++u) {
+      for (auto e : *F.neighbours(u)) {
+        if (u == e.v1) H.push_back(e);
+      }
+    }
+    //check if edge satisfy cut property
+    for (auto eh : H) {
+        UnionFind uf(n);
+        //rebuild the mst without eh
+        for (auto e : H) {
+            if (e.edgeId == eh.edgeId) continue; //skip eh
+            uf.merge(e.v1, e.v2);
+        }
+
+        int a = uf.find(eh.v1);
+        int b = uf.find(eh.v2);
+        double minCut = INF;
+
+        for (int u = 0; u < n; ++u) {
+            for (auto e : *G.neighbours(u)) {
+                if (u != e.v1) continue;
+                if (uf.find(e.v1) != uf.find(e.v2)) {
+                    minCut = std::min(minCut, e.weight); //update min cut edge if edge end points is in diff components
+                }
+            }
+        }
+        //if eh is heavier than the min cut then it violates cycle property
+        if (eh.weight > minCut + 1e-5) {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 
 //--------KNOWN ALGORITHMS FROM THE COURSE TO VERIFY RANDOM MST RESULTS----------------
@@ -190,6 +232,16 @@ TEST(MstBoruvkaTest, smallRandomEuclidean) {
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
 
+TEST(MstBoruvkaTest, smallRandomEuclideanCutProperty) {
+  const int N = 10;
+  const int numEdges = 30;
+  unsigned seed = 982'832;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+}
+
 TEST(MstBoruvkaTest, smallRandomEuclidean2) {
   const int N = 15;
   const int numEdges = 50;
@@ -198,6 +250,16 @@ TEST(MstBoruvkaTest, smallRandomEuclidean2) {
   Graph mst = boruvkaMST(G);
   Graph mst_res = primMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
+}
+
+TEST(MstBoruvkaTest, smallRandomEuclidean2CutProperty) {
+  const int N = 15;
+  const int numEdges = 50;
+  unsigned seed = 892'893;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
 }
 
 TEST(MstBoruvkaTest, mediumRandomEuclidean) {
@@ -209,6 +271,16 @@ TEST(MstBoruvkaTest, mediumRandomEuclidean) {
   Graph mst_res = primMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);}
 
+TEST(MstBoruvkaTest, mediumRandomEuclidean2CutProperty) {
+  const int N = 250;
+  const int numEdges = 1200;
+  unsigned seed = 329'823;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+}
+
 TEST(MstBoruvkaTest, largeRandomEuclidean) {
   const int N = 1000;
   const int numEdges = 15'000;
@@ -217,6 +289,16 @@ TEST(MstBoruvkaTest, largeRandomEuclidean) {
   Graph mst = boruvkaMST(G);
   Graph mst_res = primMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
+}
+
+TEST(MstBoruvkaTest, largeRandomEuclideanCutProperty) {
+  const int N = 1000;
+  const int numEdges = 15'000;
+  unsigned seed = 11'829'119;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
 }
 
 TEST(MstBoruvkaTest, largeSparseRandomEuclidean) {
@@ -228,6 +310,16 @@ TEST(MstBoruvkaTest, largeSparseRandomEuclidean) {
   Graph mst_res = kruskalMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);}
 
+TEST(MstBoruvkaTest, largeSparseRandomEuclideanCutProperty) {
+  const int N = 1000;
+  const int numEdges = 2'000;
+  unsigned seed = 823'238;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+}  
+
 TEST(MstTest, 100KVertices) {
   const int N = 100'000;
   const int numEdges = 2'500'000;
@@ -237,6 +329,7 @@ TEST(MstTest, 100KVertices) {
   Graph mst_res = primMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
+
 
 //===========RANDOMISED ALGORITHM TEST=================
 
@@ -292,6 +385,13 @@ TEST(kktTest, mediumEWG) {
   EXPECT_NEAR(mst.edgeWeightSum(), 10.46351, 0.00001);
 }
 
+TEST(kktTest, mediumEWGCutProperty) {
+  Graph G {"mediumEWG.txt"};
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+}
+
 TEST(kktTest, smallRandomEuclidean) {
   const int N = 10;
   const int numEdges = 30;
@@ -301,6 +401,16 @@ TEST(kktTest, smallRandomEuclidean) {
   Graph mst_res = primMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
+
+TEST(kktTest, smallRandomEuclideanCutProperty) {
+  const int N = 10;
+  const int numEdges = 30;
+  unsigned seed = 982'832;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+} 
 
 TEST(kktTest, smallRandomEuclidean2) {
   const int N = 15;
@@ -312,6 +422,17 @@ TEST(kktTest, smallRandomEuclidean2) {
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
 
+
+TEST(kktTest, smallRandomEuclidean2CutProperty) {
+  const int N = 15;
+  const int numEdges = 50;
+  unsigned seed = 892'893;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+} 
+
 TEST(kktTest, mediumRandomEuclidean) {
   const int N = 250;
   const int numEdges = 1200;
@@ -320,6 +441,16 @@ TEST(kktTest, mediumRandomEuclidean) {
   Graph mst = kktMST(G);
   Graph mst_res = primMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);}
+
+TEST(kktTest, mediumRandomEuclideanCutProperty) {
+  const int N = 250;
+  const int numEdges = 1200;
+  unsigned seed = 329'823;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+} 
 
 TEST(kktTest, largeRandomEuclidean) {
   const int N = 1000;
@@ -331,6 +462,16 @@ TEST(kktTest, largeRandomEuclidean) {
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);
 }
 
+TEST(kktTest, largeRandomEuclideanCutProperty) {
+  const int N = 1000;
+  const int numEdges = 15'000;
+  unsigned seed = 11'829'119;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+} 
+
 TEST(kktTest, largeSparseRandomEuclidean) {
   const int N = 1000;
   const int numEdges = 2'000;
@@ -339,6 +480,16 @@ TEST(kktTest, largeSparseRandomEuclidean) {
   Graph mst = kktMST(G);
   Graph mst_res = kruskalMST(G);
   EXPECT_NEAR(mst.edgeWeightSum(), mst_res.edgeWeightSum(), 0.00001);}
+
+TEST(kktTest, largeSparseRandomEuclideanCutProperty) {
+  const int N = 1000;
+  const int numEdges = 2'000;
+  unsigned seed = 823'238;
+  Graph G = randomEuclideanGraph(N, numEdges, seed);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyCutProperty(G, mst);
+  EXPECT_TRUE(f);
+} 
 
 TEST(kktTest, 100KVertices) {
   const int N = 100'000;
