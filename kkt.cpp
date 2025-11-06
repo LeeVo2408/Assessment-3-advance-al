@@ -6,6 +6,7 @@
 #include "lca.hpp"
 
 //Boruvka step to return the chosen edges and the connected components (supernode) for next round
+//time complexity: O(ma(n)) ~ O(m)
 std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
     int n = G.numVertices();
     UnionFind UF(n);
@@ -51,7 +52,7 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
     int compCount = 0;
     for (int v = 0; v < n; ++v) {
         int comp = UF.find(v);
-        //if the component is not mapped yet
+        //assign new id (compCount) if the component is not mapped yet
         if (superNodes.find(comp) == superNodes.end()) {
             superNodes[comp] = compCount;
             vertexSuperNode[v] = superNodes[comp];
@@ -61,10 +62,11 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
             vertexSuperNode[v] = superNodes[comp];
         }
     }
-
+    
+    //choosing the lightest edge crossing the cut
     std::unordered_map<std::pair<int,int>, Graph::Edge, pairhash> lightest;
     lightest.reserve(n*4);
-    //now add edges to the contracted graph
+    
     for (int u = 0; u < n; ++u) {
         for (auto e : *G.neighbours(u)) {
             if (u != e.v1) continue;                    //avoid duplicate edge
@@ -78,6 +80,8 @@ std::pair<std::vector<Graph::Edge>, Graph> boruvkaStep(const Graph& G) {
             }
         }
     }
+
+    //now add edges to the contracted graph
 
     Graph contracted(compCount);
     for (const auto& e : lightest) {
@@ -160,7 +164,6 @@ Graph kktMST(const Graph& G) {
 
 
 //helper functions
-
 std::pair<int, int> makeOrderedPair(int a, int b) {
     if (a > b) std::swap(a, b);
     return {a, b};

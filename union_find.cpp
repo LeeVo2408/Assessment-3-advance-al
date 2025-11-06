@@ -35,9 +35,13 @@ void UnionFind::merge(int element1, int element2) {
     }
     if (ranks[root1] < ranks[root2]) {
         parent[root1] = root2;
+
     } else if (ranks[root1] > ranks[root2]) {
         parent[root2] = root1;
-    } else { // Ranks are equal
+
+    } 
+    // Ranks are equal
+    else { 
         parent[root2] = root1; 
         ranks[root1]++;       
     }
