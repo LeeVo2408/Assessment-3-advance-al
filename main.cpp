@@ -12,18 +12,27 @@
 #include <queue>
 #include <limits>
 #include "lca.hpp"
-
+#include "union_find.hpp"
 //----------function to check cycle property---------
 bool verifyMST(const Graph& G, const Graph& mst) {
   LCA lca(mst);
+  UnionFind uf(G.numVertices());
+  //build uf for mst
+  for (int u =0; u<mst.numVertices(); ++u) {
+    for (auto e : *mst.neighbours(u)) {
+        if (u != e.v1) continue;
+        uf.merge(e.v1, e.v2);
+    }
+  }
   for (int u = 0; u < G.numVertices(); ++u) {
     for (auto e : *G.neighbours(u)) {
         if (u != e.v1) continue;
+        if (!uf.sameSet(e.v1, e.v2)) continue;
         double maxW = lca.maxEdgeWeight(e.v1, e.v2);
-        if (e.weight > maxW) return true;
+        if (e.weight < maxW) return false;
     }
   }
-  return false;
+  return true;
 }
 
 //--------KNOWN ALGORITHMS FROM THE COURSE TO VERIFY RANDOM MST RESULTS----------------
@@ -101,11 +110,27 @@ TEST(MstBoruvkaTest, EmptyGraph) {
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
 }
 
+TEST(MstBoruvkaTest, EmptyGraphCycleProperty) {
+  Graph G(0);
+  Graph mst = boruvkaMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
+}
+
+
 TEST(MstBoruvkaTest, noEdgeGraph) {
   Graph G(9, {});
   Graph mst = boruvkaMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
 }
+
+TEST(MstBoruvkaTest, noEdgeGraphCycleProperty) {
+  Graph G(9, {});
+  Graph mst = boruvkaMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
+}
+
 
 TEST(MstBoruvkaTest, allEdgesSameWeight) {
   Graph G{7, {{5, 0,1}, {5, 0, 2}, {5, 1, 3}, {5, 1, 5}, {5, 2, 3}, {5, 2, 4}, {5, 3, 4}, 
@@ -121,6 +146,7 @@ TEST(MstBoruvkaTest, allEdgesSameWeightCycleProperty) {
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 }
+
 
 TEST(MstBoruvkaTest, AustralianCities) {
   Graph G {7, {{2600, 0, 1}, {3600, 0, 2}, {2800, 1, 3}, {3000, 1, 5},
@@ -169,6 +195,15 @@ TEST(MstBoruvkaTest, disconnectedGraph) {
   Graph mst = boruvkaMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 6.0);
 }
+
+TEST(MstBoruvkaTest, disconnectedGraphCycleProperty) {
+  Graph G {8, { {1, 0, 1}, {1, 1, 2}, {1, 2, 3}, {1, 4, 5}, {1, 5, 6},
+                {1, 6, 7} }};
+  Graph mst = boruvkaMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
+}
+
 
 // larger test case from Algorithms by Sedgewick and Wayne
 TEST(MstBoruvkaTest, mediumEWG) {
@@ -319,10 +354,24 @@ TEST(mstKKTTest, EmptyGraph) {
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
 }
 
+TEST(MstKKTTest, EmptyGraphCycleProperty) {
+  Graph G(0);
+  Graph mst = kktMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
+}
+
 TEST(mstKKTTest, noEdgeGraph) {
   Graph G(9, {});
   Graph mst = kktMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 0);
+}
+
+TEST(mstKKTTest, noEdgeGraphCycleProperty) {
+  Graph G(9, {});
+  Graph mst = kktMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
 }
 
 TEST(mstKKTTest, allEdgesSameWeight) {
@@ -335,10 +384,11 @@ TEST(mstKKTTest, allEdgesSameWeight) {
 TEST(mstKKTTest, allEdgesSameWeightCycleProperty) {
   Graph G{7, {{5, 0,1}, {5, 0, 2}, {5, 1, 3}, {5, 1, 5}, {5, 2, 3}, {5, 2, 4}, {5, 3, 4}, 
               {5, 4, 5}, {880, 4, 5}, {5, 4, 6}, {5, 5, 6}}};  
-  Graph mst = boruvkaMST(G);
+  Graph mst = kktMST(G);
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 }
+
 
 TEST(mstKKTTest, AustralianCities) {
   Graph G {7, {{2600, 0, 1}, {3600, 0, 2}, {2800, 1, 3}, {3000, 1, 5},
@@ -358,12 +408,31 @@ TEST(mstKKTTest, tinyEWG) {
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 1.81);
 }
 
+TEST(mstKKTTest, tinyEWGCycleroperty) {
+  Graph G {8, {{0.35, 4, 5}, {0.37, 4, 7}, {0.28, 5, 7}, {0.16, 0, 7},
+               {0.32, 1, 5}, {0.38, 0, 4}, {0.17, 2, 3}, {0.19, 1, 7},
+               {0.26, 0, 2}, {0.36, 1, 2}, {0.29, 1, 3}, {0.34, 2, 7},
+               {0.40, 6, 2}, {0.52, 3, 6}, {0.58, 6, 0}, {0.93, 6, 4}}};
+  Graph mst = kktMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
+} 
+
 TEST(mstKKTTest, disconnectedGraph) {
   Graph G {8, { {1, 0, 1}, {1, 1, 2}, {1, 2, 3}, {1, 4, 5}, {1, 5, 6},
                 {1, 6, 7} }};
   Graph mst = kktMST(G);
   EXPECT_DOUBLE_EQ(mst.edgeWeightSum(), 6.0);
 }
+
+TEST(mstKKTTest, disconnectedGraphCycleroperty) {
+  Graph G {8, { {1, 0, 1}, {1, 1, 2}, {1, 2, 3}, {1, 4, 5}, {1, 5, 6},
+                {1, 6, 7} }};
+  Graph mst = kktMST(G);
+  bool f = verifyMST(G, mst);
+  EXPECT_TRUE(f);
+} 
+
 
 // larger test case from Algorithms by Sedgewick and Wayne
 TEST(mstKKTTest, mediumEWG) {
@@ -375,7 +444,7 @@ TEST(mstKKTTest, mediumEWG) {
 
 TEST(mstKKTTest, mediumEWGCycleroperty) {
   Graph G {"mediumEWG.txt"};
-  Graph mst = boruvkaMST(G);
+  Graph mst = kktMST(G);
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 }
@@ -395,7 +464,7 @@ TEST(mstKKTTest, smallRandomEuclideanCycleroperty) {
   const int numEdges = 30;
   unsigned seed = 982'832;
   Graph G = randomEuclideanGraph(N, numEdges, seed);
-  Graph mst = boruvkaMST(G);
+  Graph mst = kktMST(G);
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 } 
@@ -416,7 +485,7 @@ TEST(mstKKTTest, smallRandomEuclidean2CycleProperty) {
   const int numEdges = 50;
   unsigned seed = 892'893;
   Graph G = randomEuclideanGraph(N, numEdges, seed);
-  Graph mst = boruvkaMST(G);
+  Graph mst = kktMST(G);
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 } 
@@ -435,7 +504,7 @@ TEST(mstKKTTest, mediumRandomEuclideanCycleProperty) {
   const int numEdges = 1200;
   unsigned seed = 329'823;
   Graph G = randomEuclideanGraph(N, numEdges, seed);
-  Graph mst = boruvkaMST(G);
+  Graph mst = kktMST(G);
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 } 
@@ -455,7 +524,7 @@ TEST(mstKKTTest, largeRandomEuclideanCycleroperty) {
   const int numEdges = 15'000;
   unsigned seed = 11'829'119;
   Graph G = randomEuclideanGraph(N, numEdges, seed);
-  Graph mst = boruvkaMST(G);
+  Graph mst = kktMST(G);
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 } 
@@ -474,7 +543,7 @@ TEST(mstKKTTest, largeSparseRandomEuclideanCycleProperty) {
   const int numEdges = 2'000;
   unsigned seed = 823'238;
   Graph G = randomEuclideanGraph(N, numEdges, seed);
-  Graph mst = boruvkaMST(G);
+  Graph mst = kktMST(G);
   bool f = verifyMST(G, mst);
   EXPECT_TRUE(f);
 } 
